@@ -42,4 +42,4 @@
 
 # Winner
 
-> The winning idea is an app that covers all 3 of the ideas from step 4. It will recommend a wide variety of new destinations for the user, based off their preferences. It will also provide important background information for each destination, and explain logistics to the user to smooth the traveling experience and minimizing preparation before travelling.
+The winning idea is an app that covers all 3 of the ideas from step 4. It will recommend a wide variety of new destinations for the user, based off their preferences. It will also provide important background information for each destination, and explain logistics to the user to smooth the traveling experience and minimizing preparation before travelling.
