@@ -19,6 +19,25 @@ export default function Splash() {
             </div>
           </div>
         </div>
+        <figcaption
+          style={{
+            position: 'absolute',
+            right: '0',
+            bottom: '0',
+            background: 'rgba(255, 255, 255, 0.7)',
+            color: '#333',
+            padding: '5px'
+          }}
+        >
+          Photo by Heiko Meyer on{' '}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.nationalgeographic.es/viaje-y-aventuras/consejos-de-viaje-salar-de-uyuni-el-desierto-de-sal-mas-grande-del-mundo"
+          >
+            National Geographic
+          </a>
+        </figcaption>
       </div>
 
       {/* MIDDLE DIV */}
