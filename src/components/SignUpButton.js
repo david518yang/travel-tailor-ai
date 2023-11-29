@@ -14,5 +14,9 @@ export default function SignUpButton() {
     }
   }
 
-  return <button onClick={handleSignUp}>Sign Up</button>
+  return (
+    <button onClick={handleSignUp} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Sign Up
+    </button>
+  )
 }

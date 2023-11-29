@@ -2,6 +2,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import Splash from './pages/Splash'
 import Preferences from './pages/Preferences'
 import Home from './pages/Home'
+import './tailwind.css'
 
 function App() {
   return (
