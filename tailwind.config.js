@@ -4,7 +4,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        merriweather: ['Merriweather', 'serif']
+        merriweather: ['Merriweather', 'serif'],
+        poppins: ['Poppins', 'serif'],
+        roboto: ['Roboto', 'serif']
       }
     }
   },

@@ -18,7 +18,7 @@ export default function LogInButton() {
   return (
     <button
       onClick={handleLogIn}
-      className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded"
+      className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded m-10"
     >
       Log In
     </button>
