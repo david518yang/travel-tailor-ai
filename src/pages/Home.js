@@ -7,6 +7,8 @@ import fetchImages from '../utils/unsplash'
 export default function Home() {
   const location = useLocation()
   const rec = location.state?.parsedRecommendations
+  const uuid = location.state?.uuid
+  const displayName = location.state?.displayName
   const [recommendations, setRecommendations] = useState(rec.destinations)
 
   // const [recommendedLocations, setRecommendedLocations] = useState([
@@ -46,23 +48,30 @@ export default function Home() {
 
   return (
     <div className="grid grid-cols-8 gap-2">
-      <nav class="flex flex-col col-span-1 justify-between h-screen">
-        <div class="text-lg font-bold m-2">Travel Tailor</div>
-        <div class="align-center">
-          <SignOutButton />
+      <nav className="flex flex-col col-span-1 space-between h-screen bg-gray-800 text-white">
+        <div className="text-3xl font-bold m-4">Travel Tailor</div>
+        <div className="flex flex-col m-4 space-y-2">
+          <button className="py-2 px-4 bg-blue-500 rounded hover:bg-blue-700">Dashboard</button>
+          <button className="py-2 px-4 bg-blue-500 rounded hover:bg-blue-700">Edit Preferences</button>
+          <button className="py-2 px-4 bg-blue-500 rounded hover:bg-blue-700">Settings</button>
         </div>
+        <div className="flex-grow"></div>
+        <SignOutButton className="m-4" />
       </nav>
 
-      <div className="col-span-7">
+      <div className="col-span-7 p-4 h-[100vh]">
+        <h1 className="text-3xl font-bold mb-4">Welcome back {displayName}</h1>
+
         <div className="h-20 flex items-end">
           <h2 className="text-2xl font-bold">Recommended for You</h2>
         </div>
 
-        <div className="flex flex-auto">
+        <div className="flex flex-auto ">
           {recommendations.map((location, index) => (
             <LocationCard key={index} location={location} />
           ))}
         </div>
+
         <div className="h-20 flex items-end">
           <h2 className="text-2xl font-bold">Recently Saved</h2>
         </div>

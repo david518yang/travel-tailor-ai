@@ -4,9 +4,9 @@ const LocationCard = ({ location }) => {
   const { name, imageUrls, description, backgroundInfo } = location
 
   return (
-    <div className="m-4 border border-gray-300 rounded-lg w-full flex flex-col">
+    <div className="m-4 bg-white shadow-lg border border-gray-100 rounded-xl w-full flex flex-col overflow-hidden hover:shadow-xl transition-shadow duration-300">
       {imageUrls && imageUrls.length > 0 && (
-        <div style={{ height: '350px' }}>
+        <div className="h-[25vh]">
           <img
             src={imageUrls[1]}
             alt={`Image of ${name}`}

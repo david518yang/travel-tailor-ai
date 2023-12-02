@@ -7,8 +7,8 @@ export default function SignUpButton() {
 
   const handleSignUp = async () => {
     try {
-      await signInWithGoogle()
-      navigate('/preferences')
+      const { uuid, displayName } = await signInWithGoogle()
+      navigate('/preferences', { state: { uuid, displayName } })
     } catch (error) {
       console.error('Error during sign up', error)
     }
