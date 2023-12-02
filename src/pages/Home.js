@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import SignOutButton from '../components/SignOutButton'
 import LocationCard from '../components/LocationCard'
 import fetchImages from '../utils/unsplash'
+import { fetchDestinations } from '../utils/destinationService'
 
 export default function Home() {
   const location = useLocation()
@@ -11,6 +12,7 @@ export default function Home() {
   // console.log(uuid)
   const displayName = location.state?.displayName
   const [recommendations, setRecommendations] = useState(rec.destinations)
+  const [last3Destinations, setLast3Destinations] = useState([])
 
   // const [recommendedLocations, setRecommendedLocations] = useState([
   //   {
@@ -47,6 +49,11 @@ export default function Home() {
     fetchAllImages()
   }, [])
 
+  const fetchAndUpdateLast3Destinations = async () => {
+    const destinations = await fetchDestinations(uuid, 'top3')
+    setLast3Destinations(destinations)
+  }
+
   return (
     <div className="grid grid-cols-8 gap-2">
       <nav className="flex flex-col col-span-1 space-between h-screen bg-gray-800 text-white">
@@ -54,7 +61,7 @@ export default function Home() {
         <div className="flex flex-col m-4 space-y-2">
           <button className="py-2 px-4 bg-blue-500 rounded hover:bg-blue-700">Dashboard</button>
           <button className="py-2 px-4 bg-blue-500 rounded hover:bg-blue-700">Edit Preferences</button>
-          <button className="py-2 px-4 bg-blue-500 rounded hover:bg-blue-700">Settings</button>
+          <button className="py-2 px-4 bg-blue-500 rounded hover:bg-blue-700">Saved Destinations</button>
         </div>
         <div className="flex-grow"></div>
         <SignOutButton className="m-4" />
@@ -69,7 +76,13 @@ export default function Home() {
 
         <div className="flex flex-auto ">
           {recommendations.map((location, index) => (
-            <LocationCard key={index} location={location} uuid={uuid} />
+            <LocationCard
+              key={index}
+              location={location}
+              uuid={uuid}
+              onSave={fetchAndUpdateLast3Destinations}
+              recommendation={true}
+            />
           ))}
         </div>
 
@@ -78,9 +91,13 @@ export default function Home() {
         </div>
 
         <div className="flex flex-auto">
-          {recommendations.map((location, index) => (
-            <LocationCard key={index} location={location} uuid={uuid} />
-          ))}
+          {!last3Destinations.length == 0 ? (
+            last3Destinations.map((location, index) => (
+              <LocationCard key={index} location={location} uuid={uuid} recommendation={false} />
+            ))
+          ) : (
+            <>No recently saved destinations</>
+          )}
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import SaveButton from './SaveButton'
 
-const LocationCard = ({ location, uuid }) => {
+const LocationCard = ({ location, uuid, onSave, recommendation }) => {
   const { name, imageUrls, description, backgroundInfo } = location
 
   return (
@@ -19,7 +19,7 @@ const LocationCard = ({ location, uuid }) => {
         <h3 className="text-xl font-semibold">{name}</h3>
         <p className="text-md">{description}</p>
         {/* {backgroundInfo && <p className="text-sm">{backgroundInfo}</p>} */}
-        <SaveButton location={location} uuid={uuid} />
+        {recommendation && <SaveButton location={location} uuid={uuid} onSave={onSave} />}
       </div>
     </div>
   )
