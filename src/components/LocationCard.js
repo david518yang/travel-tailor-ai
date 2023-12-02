@@ -1,6 +1,7 @@
 import React from 'react'
+import SaveButton from './SaveButton'
 
-const LocationCard = ({ location }) => {
+const LocationCard = ({ location, uuid }) => {
   const { name, imageUrls, description, backgroundInfo } = location
 
   return (
@@ -17,7 +18,8 @@ const LocationCard = ({ location }) => {
       <div className="p-4">
         <h3 className="text-xl font-semibold">{name}</h3>
         <p className="text-md">{description}</p>
-        {backgroundInfo && <p className="text-sm">{backgroundInfo}</p>}
+        {/* {backgroundInfo && <p className="text-sm">{backgroundInfo}</p>} */}
+        <SaveButton location={location} uuid={uuid} />
       </div>
     </div>
   )

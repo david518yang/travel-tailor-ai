@@ -8,6 +8,7 @@ export default function Home() {
   const location = useLocation()
   const rec = location.state?.parsedRecommendations
   const uuid = location.state?.uuid
+  // console.log(uuid)
   const displayName = location.state?.displayName
   const [recommendations, setRecommendations] = useState(rec.destinations)
 
@@ -68,7 +69,7 @@ export default function Home() {
 
         <div className="flex flex-auto ">
           {recommendations.map((location, index) => (
-            <LocationCard key={index} location={location} />
+            <LocationCard key={index} location={location} uuid={uuid} />
           ))}
         </div>
 
@@ -78,7 +79,7 @@ export default function Home() {
 
         <div className="flex flex-auto">
           {recommendations.map((location, index) => (
-            <LocationCard key={index} location={location} />
+            <LocationCard key={index} location={location} uuid={uuid} />
           ))}
         </div>
       </div>
