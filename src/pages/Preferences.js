@@ -14,7 +14,7 @@ export default function Preferences() {
       ...prevPreferences,
       [question]: [...(prevPreferences[question] || []), choice]
     }))
-    console.log(preferences)
+    // console.log(preferences)
   }
 
   const handleGenerateRecommendations = async () => {

@@ -8,7 +8,7 @@ async function chatCompletion(prompt) {
       {
         role: 'system',
         content:
-          "You are a helpful travel destination discovery assistant designed to find fitting destinations for a user based on their preferences. Output in JSON with keys 'location', 'description', 'background-info'."
+          "You are a helpful travel destination discovery assistant designed to find fitting destinations for a user based on their preferences. Output in JSON with keys 'name', 'description', 'backgroundInfo'"
       },
       { role: 'user', content: prompt }
     ],
