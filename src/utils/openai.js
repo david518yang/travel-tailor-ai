@@ -1,22 +1,24 @@
-// import OpenAI from 'openai'
-// const openai = new OpenAI()
+import OpenAI from 'openai'
+const apiKey = process.env.REACT_APP_OPENAI_API_KEY
+const openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true })
 
-// async function chatCompletion(prompt) {
-//   const completion = await openai.chat.completions.create({
-//     messages: [
-//       {
-//         role: 'system',
-//         content:
-//           "You are a helpful travel destination discovery assistant designed to find fitting destinations for a user based on their preferences. Output in JSON with keys 'location', 'description', 'background-info'."
-//       },
-//       { role: 'user', content: prompt }
-//     ],
-//     model: 'gpt-3.5-turbo-1106',
-//     response_format: { type: 'json_object' }
-//   })
-//   console.log(completion.choices[0])
-//   return completion.choices[0]
-// }
+async function chatCompletion(prompt) {
+  const completion = await openai.chat.completions.create({
+    messages: [
+      {
+        role: 'system',
+        content:
+          "You are a helpful travel destination discovery assistant designed to find fitting destinations for a user based on their preferences. Output in JSON with keys 'location', 'description', 'background-info'."
+      },
+      { role: 'user', content: prompt }
+    ],
+    model: 'gpt-3.5-turbo-1106',
+    response_format: { type: 'json_object' }
+  })
+  //   console.log(completion.choices[0])
+  return completion.choices[0]
+}
+
 function constructPrompt(preferences) {
   var preferenceString = ''
   Object.entries(preferences).forEach(([question, choices]) => {
@@ -56,18 +58,21 @@ function constructPrompt(preferences) {
   })
   return preferenceString
 }
-const getRecommendations = async preferences => {
-  const prompt = 'Generate 3 destinations with the following user preferences: ' + constructPrompt(preferences)
-  // Logic to use OpenAI API with the preferences object
-  // For example, making an HTTP request to the OpenAI API
 
-  // Placeholder for OpenAI API interaction
-  console.log('Sending preferences to OpenAI API:', preferences)
-  console.log('Prompt: ' + prompt)
-  await new Promise(resolve => setTimeout(resolve, 2000))
-  // Return the recommendations from OpenAI API
-  // This is a placeholder return
-  return ['Recommendation 1', 'Recommendation 2', 'Recommendation 3']
+const getRecommendations = async preferences => {
+  const prompt =
+    'Generate 3 destinations, along with a brief description and background information with the following user preferences: ' +
+    constructPrompt(preferences)
+  try {
+    const response = await chatCompletion(prompt)
+
+    // console.log('Recommendations:', response.message.content.destinations)
+
+    return response.message.content
+  } catch (error) {
+    console.error('Error in getRecommendations:', error)
+    throw error
+  }
 }
 
 export { getRecommendations }

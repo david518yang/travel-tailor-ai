@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import PreferenceQuestion from '../components/PreferenceQuestion'
 import GenerateRecommendationsButton from '../components/GenerateRecommendationsButton'
 import { getRecommendations } from '../utils/openai'
@@ -6,6 +7,7 @@ import { getRecommendations } from '../utils/openai'
 export default function Preferences() {
   const [preferences, setPreferences] = useState({})
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
 
   const updatePreferences = (question, choice) => {
     setPreferences(prevPreferences => ({
@@ -19,8 +21,9 @@ export default function Preferences() {
     setIsLoading(true)
     try {
       const recommendations = await getRecommendations(preferences)
-      console.log('Received recommendations:', recommendations)
-      // Here you can do something with the received recommendations
+      const parsedRecommendations = JSON.parse(recommendations)
+      console.log('Received recommendations:', parsedRecommendations.destinations)
+      navigate('/home', { state: { parsedRecommendations } })
     } catch (error) {
       console.error('Error getting recommendations:', error)
     }
