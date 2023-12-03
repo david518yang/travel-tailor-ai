@@ -1,12 +1,21 @@
 import { useState, useEffect } from 'react'
 import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth'
-import { auth } from './firebase'
+import { doc, setDoc, collection } from 'firebase/firestore'
+import { db, auth } from './firebase'
+
+const handleNewSignIn = async uuid => {
+  const userDocRef = doc(db, 'users', uuid)
+  const userSubcollectionRef = collection(userDocRef, uuid)
+  const initialDocRef = doc(userSubcollectionRef)
+  await setDoc(initialDocRef, {})
+}
 
 export const signInWithGoogle = async () => {
   const provider = new GoogleAuthProvider()
   try {
     const result = await signInWithPopup(auth, provider)
     const uuid = result.user.uid
+    await handleNewSignIn(uuid)
     const displayName = result.user.displayName
     return { uuid, displayName }
   } catch (error) {

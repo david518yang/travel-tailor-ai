@@ -15,12 +15,12 @@ export async function saveDestination({ location, uuid }) {
   try {
     const userDoc = await getDoc(userDocRef)
 
-    if (!userDoc.exists()) {
-      await setDoc(userDocRef, { preferences: userDoc.data().preferences, savedDestinations: [data] })
-    } else {
+    if (userDoc.exists()) {
       await updateDoc(userDocRef, {
         savedDestinations: arrayUnion(data)
       })
+    } else {
+      await setDoc(userDocRef, { preferences: userDoc.data().preferences, savedDestinations: [data] })
     }
 
     return data
