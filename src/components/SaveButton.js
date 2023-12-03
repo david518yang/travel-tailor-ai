@@ -7,7 +7,7 @@ const SaveButton = ({ location, uuid, onSave }) => {
     try {
       console.log(location)
       await saveDestination({ location, uuid })
-      alert('Location saved successfully!')
+      //   alert('Location saved successfully!')
       if (onSave) {
         onSave()
       }
