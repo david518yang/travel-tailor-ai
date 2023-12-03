@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "webappfinal-27f0d"
-  }
+    "default": "travel-tailor-ai"
+  },
+  "targets": {},
+  "etags": {}
 }

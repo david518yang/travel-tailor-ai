@@ -5,12 +5,12 @@ import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBjjfcFoDmasxbsgU5YDVS0qcjiVKWyNbE',
-  authDomain: 'webappfinal-27f0d.firebaseapp.com',
-  projectId: 'webappfinal-27f0d',
-  storageBucket: 'webappfinal-27f0d.appspot.com',
-  messagingSenderId: '328678408697',
-  appId: '1:328678408697:web:946d0930e37d5955ec7d28'
+  apiKey: 'AIzaSyDxD-zsVzn5dNZ9u7oRa1iuj2KAvIinAtk',
+  authDomain: 'travel-tailor-ai.firebaseapp.com',
+  projectId: 'travel-tailor-ai',
+  storageBucket: 'travel-tailor-ai.appspot.com',
+  messagingSenderId: '1014478420131',
+  appId: '1:1014478420131:web:4efba979a6d7e2ad8fa716'
 }
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
