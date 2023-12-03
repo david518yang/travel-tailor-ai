@@ -1,36 +1,57 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import PreferenceQuestion from '../components/PreferenceQuestion'
 import GenerateRecommendationsButton from '../components/GenerateRecommendationsButton'
 import { getRecommendations } from '../utils/openai'
+import { savePreferences } from '../utils/preferenceService'
 
 export default function Preferences() {
   const [preferences, setPreferences] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
-  const uuid = location.state?.uuid
-  const displayName = location.state?.displayName
+  const { uuid, displayName, pref } = location.state || {}
 
-  const updatePreferences = (question, choice) => {
-    setPreferences(prevPreferences => ({
-      ...prevPreferences,
-      [question]: [...(prevPreferences[question] || []), choice]
-    }))
-    // console.log(preferences)
+  useEffect(() => {
+    if (pref) {
+      setPreferences(pref)
+    }
+  }, [pref])
+
+  const handleCheckboxChange = (preference, choice, isChecked) => {
+    setPreferences(prevSelections => {
+      const updatedSelections = { ...prevSelections }
+      if (!updatedSelections[preference]) {
+        updatedSelections[preference] = []
+      }
+      if (isChecked) {
+        if (!updatedSelections[preference].includes(choice)) {
+          updatedSelections[preference].push(choice)
+        }
+      } else {
+        updatedSelections[preference] = updatedSelections[preference].filter(item => item !== choice)
+      }
+      return updatedSelections
+    })
   }
 
   const handleGenerateRecommendations = async () => {
     setIsLoading(true)
+    // Object.entries(preferences).map(([key, value]) => {
+    //   console.log(`Preference: ${key}, Selections: ${value}`)
+    // })
     try {
+      // console.log(preferences)
+      await savePreferences({ preferences, uuid })
       const recommendations = await getRecommendations(preferences)
       const parsedRecommendations = JSON.parse(recommendations)
-      console.log(`Received ${displayName}'s recommendations:`, parsedRecommendations.destinations)
+      console.log(parsedRecommendations)
+      setIsLoading(false)
+      // console.log(`Received ${displayName}'s recommendations:`, parsedRecommendations.destinations)
       navigate('/home', { state: { parsedRecommendations, uuid, displayName } })
     } catch (error) {
       console.error('Error getting recommendations:', error)
     }
-    setIsLoading(false)
   }
 
   return (
@@ -54,7 +75,8 @@ export default function Preferences() {
                 '🌟 Luxury Retreat',
                 '🌆 Urban Discovery'
               ]}
-              onSelectionChange={updatePreferences}
+              preferences={preferences}
+              onCheckboxChange={handleCheckboxChange}
             />
           </div>
           <div className="col-start-2 col-end-12 bg-gray-200 p-5 rounded-3xl">
@@ -72,7 +94,8 @@ export default function Preferences() {
                 '🌊 Marine',
                 '🌧️ Rainy'
               ]}
-              onSelectionChange={updatePreferences}
+              preferences={preferences}
+              onCheckboxChange={handleCheckboxChange}
             />
           </div>
           <div className="col-start-2 col-end-12 bg-gray-200 p-5 rounded-3xl">
@@ -89,7 +112,8 @@ export default function Preferences() {
                 '📸 Photography',
                 '🛍️ Shopping'
               ]}
-              onSelectionChange={updatePreferences}
+              preferences={preferences}
+              onCheckboxChange={handleCheckboxChange}
             />
           </div>
           <div className="col-start-2 col-end-12 bg-gray-200 p-5 rounded-3xl">
@@ -106,7 +130,8 @@ export default function Preferences() {
                 '🎉 Festivals',
                 '🏛️ Museums'
               ]}
-              onSelectionChange={updatePreferences}
+              preferences={preferences}
+              onCheckboxChange={handleCheckboxChange}
             />
           </div>
           <div className="col-start-2 col-end-12 bg-gray-200 p-5 rounded-3xl">
@@ -122,7 +147,8 @@ export default function Preferences() {
                 '🍳 Cook-Your-Own',
                 '🎪 Food Festivals'
               ]}
-              onSelectionChange={updatePreferences}
+              preferences={preferences}
+              onCheckboxChange={handleCheckboxChange}
             />
           </div>
           <div className="col-start-2 col-end-12 bg-gray-200 p-5 rounded-3xl">
@@ -138,21 +164,24 @@ export default function Preferences() {
                 '🚲 Biking',
                 '🚶 Walking'
               ]}
-              onSelectionChange={updatePreferences}
+              preferences={preferences}
+              onCheckboxChange={handleCheckboxChange}
             />
           </div>
           <div className="col-start-2 col-end-12 bg-gray-200 p-5 rounded-3xl">
             <PreferenceQuestion
               question="What's your spending style for travel accommodations and activities?"
               answerChoices={['💵 Budget', '🏨 Comfort', '💳 Mid-Range', '🍸 Upscale', '🛎️ Deluxe', '💎 Exclusive']}
-              onSelectionChange={updatePreferences}
+              preferences={preferences}
+              onCheckboxChange={handleCheckboxChange}
             />
           </div>
           <div className="col-start-2 col-end-12 bg-gray-200 p-5 rounded-3xl">
             <PreferenceQuestion
               question="For your upcoming travels, how do you envision your ideal travel party?"
               answerChoices={['👤 Solo', '👥 Couple', '🧑‍🤝‍🧑 Small Group', '👨‍👩‍👧‍👦 Family', '🚌 Large Tour Group']}
-              onSelectionChange={updatePreferences}
+              preferences={preferences}
+              onCheckboxChange={handleCheckboxChange}
             />
           </div>
         </div>

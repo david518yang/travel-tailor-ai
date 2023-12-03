@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import SignOutButton from '../components/SignOutButton'
 import LocationCard from '../components/LocationCard'
 import fetchImages from '../utils/unsplash'
 import { fetchDestinations } from '../utils/destinationService'
+import EditPreferencesButton from '../components/EditPreferencesButton'
+import DashboardButton from '../components/DashboardButton'
 
 export default function Home() {
   const location = useLocation()
   const rec = location.state?.parsedRecommendations
   const uuid = location.state?.uuid
+  const navigate = useNavigate()
+  const fetchBool = false
+  useEffect(() => {
+    if (!uuid) {
+      alert('UUID not found, please sign up or log in before accessing the homepage')
+      navigate('/')
+    }
+  }, [uuid, navigate])
+
   // console.log(uuid)
   const displayName = location.state?.displayName
-  const [recommendations, setRecommendations] = useState(rec.destinations)
+  const [recommendations, setRecommendations] = useState(
+    typeof location.state?.parsedRecommendations !== 'undefined' ? rec.destinations : []
+  )
   const [last3Destinations, setLast3Destinations] = useState([])
 
   // const [recommendedLocations, setRecommendedLocations] = useState([
@@ -47,7 +60,15 @@ export default function Home() {
     }
 
     fetchAllImages()
-  }, [])
+  }, [fetchBool])
+
+  useEffect(() => {
+    fetchAndUpdateLast3Destinations()
+  }, [uuid])
+
+  if (!uuid) {
+    return <div>Loading or invalid access...</div>
+  }
 
   const fetchAndUpdateLast3Destinations = async () => {
     const destinations = await fetchDestinations(uuid, 'top3')
@@ -59,8 +80,8 @@ export default function Home() {
       <nav className="flex flex-col col-span-1 space-between h-screen bg-gray-800 text-white">
         <div className="text-3xl font-bold m-4">Travel Tailor</div>
         <div className="flex flex-col m-4 space-y-2">
-          <button className="py-2 px-4 bg-blue-500 rounded hover:bg-blue-700">Dashboard</button>
-          <button className="py-2 px-4 bg-blue-500 rounded hover:bg-blue-700">Edit Preferences</button>
+          <DashboardButton uuid={uuid} displayName={displayName} recommendations={rec} />
+          <EditPreferencesButton uuid={uuid} displayName={displayName} />
           <button className="py-2 px-4 bg-blue-500 rounded hover:bg-blue-700">Saved Destinations</button>
         </div>
         <div className="flex-grow"></div>
@@ -75,15 +96,20 @@ export default function Home() {
         </div>
 
         <div className="flex flex-auto ">
-          {recommendations.map((location, index) => (
-            <LocationCard
-              key={index}
-              location={location}
-              uuid={uuid}
-              onSave={fetchAndUpdateLast3Destinations}
-              recommendation={true}
-            />
-          ))}
+          {!(recommendations.length === 0) ? (
+            recommendations.map((location, index) => (
+              <LocationCard
+                key={index}
+                location={location}
+                uuid={uuid}
+                onSave={fetchAndUpdateLast3Destinations}
+                recommendation={true}
+              />
+            ))
+          ) : (
+            <>No recommended destinations</>
+          )}
+          {}
         </div>
 
         <div className="h-20 flex items-end">
@@ -91,7 +117,7 @@ export default function Home() {
         </div>
 
         <div className="flex flex-auto">
-          {!last3Destinations.length == 0 ? (
+          {!(last3Destinations.length === 0) ? (
             last3Destinations.map((location, index) => (
               <LocationCard key={index} location={location} uuid={uuid} recommendation={false} />
             ))

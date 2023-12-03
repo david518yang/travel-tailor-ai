@@ -1,17 +1,5 @@
-import { db, auth } from './firebase'
-import {
-  collection,
-  query,
-  doc,
-  getDoc,
-  getDocs,
-  setDoc,
-  updateDoc,
-  arrayUnion,
-  orderBy,
-  limit,
-  Timestamp
-} from 'firebase/firestore'
+import { db } from './firebase'
+import { doc, getDoc, setDoc, updateDoc, arrayUnion, Timestamp } from 'firebase/firestore'
 
 export async function saveDestination({ location, uuid }) {
   const { name, imageUrls, description, backgroundInfo } = location
@@ -28,7 +16,7 @@ export async function saveDestination({ location, uuid }) {
     const userDoc = await getDoc(userDocRef)
 
     if (!userDoc.exists()) {
-      await setDoc(userDocRef, { savedDestinations: [data] })
+      await setDoc(userDocRef, { preferences: userDoc.data().preferences, savedDestinations: [data] })
     } else {
       await updateDoc(userDocRef, {
         savedDestinations: arrayUnion(data)
@@ -68,29 +56,6 @@ export async function fetchDestinations(uuid, amount) {
     } else {
       throw new Error("Invalid amount. Must be 'top3' or 'all'.")
     }
-
-    // const usersQuery = query(collection(db, 'users'), limit(30))
-    // const querySnapshot = await getDocs(usersQuery)
-
-    // let destinations = []
-    // querySnapshot.forEach(doc => {
-    //   const userDestinations = doc.data().savedDestinations || []
-    //   destinations = destinations.concat(userDestinations)
-    // })
-
-    // destinations.sort((a, b) => {
-    //   const dateA = a.saveDate ? new Date(a.saveDate.seconds * 1000) : new Date(0)
-    //   const dateB = b.saveDate ? new Date(b.saveDate.seconds * 1000) : new Date(0)
-    //   return dateB.getTime() - dateA.getTime()
-    // })
-
-    // if (amount === 'top3') {
-    //   return destinations.slice(0, 3)
-    // } else if (amount === 'all') {
-    //   return destinations.slice(0, 30)
-    // } else {
-    //   throw new Error("Invalid amount. Must be 'top3' or 'all'.")
-    // }
   } catch (error) {
     console.error('Error fetching destinations:', error)
     throw error

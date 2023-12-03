@@ -8,7 +8,7 @@ async function fetchImages(query) {
   try {
     const response = await fetch(url)
     const data = await response.json()
-    data.results.map(img => console.log(query + ': ' + img.urls.regular))
+    // data.results.map(img => console.log(query + ': ' + img.urls.regular))
     return data.results.map(img => img.urls.regular)
   } catch (error) {
     console.error('Error fetching images from Unsplash:', error)

@@ -2,7 +2,6 @@ import React from 'react'
 import { saveDestination } from '../utils/destinationService'
 
 const SaveButton = ({ location, uuid, onSave }) => {
-  console.log(uuid)
   //   const { name, imageUrls, description, backgroundInfo } = location
   const handleSave = async () => {
     try {
