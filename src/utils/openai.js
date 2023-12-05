@@ -22,52 +22,65 @@ async function chatCompletion(prompt) {
 function constructPrompt(preferences) {
   var preferenceString = ''
   Object.entries(preferences).forEach(([question, choices]) => {
-    if (question === 'What are you looking to achieve on your trip?') {
+    if (['What are you looking to achieve on your trip?', 'Travel Goals: '].includes(question)) {
       preferenceString += 'Travel Goals: '
       choices.forEach(choice => (preferenceString += `${choice.slice(3)}, `))
       preferenceString += '. '
-    } else if (question === 'Which climate zones do you love for vacationing?') {
+    } else if (['Which climate zones do you love for vacationing?', 'Preferred Climates: '].includes(question)) {
       preferenceString += 'Preferred Climates: '
       choices.forEach(choice => (preferenceString += `${choice.slice(3)}, `))
       preferenceString += '. '
-    } else if (question === 'What activities do you seek out while traveling?') {
+    } else if (['What activities do you seek out while traveling?', 'Preferred Activities: '].includes(question)) {
       preferenceString += 'Preferred Activities: '
       choices.forEach(choice => (preferenceString += `${choice.slice(3)}, `))
       preferenceString += '. '
-    } else if (question === 'Which cultural aspects are you most interested in exploring?') {
+    } else if (
+      ['Which cultural aspects are you most interested in exploring?', 'Cultural Interests: '].includes(question)
+    ) {
       preferenceString += 'Cultural Interests: '
       choices.forEach(choice => (preferenceString += `${choice.slice(3)}, `))
       preferenceString += '. '
-    } else if (question === 'What dining experiences do you prefer while on vacation?') {
+    } else if (
+      ['What dining experiences do you prefer while on vacation?', 'Preferred Dining Experiences: '].includes(question)
+    ) {
       preferenceString += 'Preferred Dining Experiences: '
       choices.forEach(choice => (preferenceString += `${choice.slice(3)}, `))
       preferenceString += '. '
-    } else if (question === 'How do you prefer to get around during your travels?') {
+    } else if (
+      ['How do you prefer to get around during your travels?', 'Preferred transportation methods: '].includes(question)
+    ) {
       preferenceString += 'Preferred transportation methods: '
       choices.forEach(choice => (preferenceString += `${choice.slice(3)}, `))
       preferenceString += '. '
-    } else if (question === "What's your spending style for travel accommodations and activities?") {
-      preferenceString += 'spending style: '
+    } else if (
+      ["What's your spending style for travel accommodations and activities?", 'spending style: '].includes(question)
+    ) {
+      preferenceString += 'Spending Style: '
       choices.forEach(choice => (preferenceString += `${choice.slice(3)}, `))
       preferenceString += '. '
-    } else if (question === 'For your upcoming travels, how do you envision your ideal travel party?') {
-      preferenceString += 'ideal travel party size: '
+    } else if (
+      ['For your upcoming travels, how do you envision your ideal travel party?', 'ideal travel party size: '].includes(
+        question
+      )
+    ) {
+      preferenceString += 'Ideal travel party size: '
       choices.forEach(choice => (preferenceString += `${choice.slice(3)}, `))
       preferenceString += '. '
     }
   })
-  console.log(preferenceString)
+  // console.log(preferenceString)
   return preferenceString
 }
 
 const getRecommendations = async preferences => {
-  const prompt = 'Generate 3 travel destinations that align with these preferences: ' + constructPrompt(preferences)
+  const prompt =
+    'Generate 3 travel destinations that align with these preferences in a json: ' + constructPrompt(preferences)
   try {
     const response = await chatCompletion(prompt)
 
-    // console.log('Recommendations:', response.message.content.destinations)
+    // console.log('Recommendations:', JSON.parse(response.message.content).destinations)
 
-    return response.message.content
+    return JSON.parse(response.message.content).destinations
   } catch (error) {
     console.error('Error in getRecommendations:', error)
     throw error

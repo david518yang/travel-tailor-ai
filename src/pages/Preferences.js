@@ -44,11 +44,10 @@ export default function Preferences() {
       // console.log(preferences)
       await savePreferences({ preferences, uuid })
       const recommendations = await getRecommendations(preferences)
-      const parsedRecommendations = JSON.parse(recommendations)
-      console.log(parsedRecommendations)
+      // console.log(recommendations)
       setIsLoading(false)
       // console.log(`Received ${displayName}'s recommendations:`, parsedRecommendations.destinations)
-      navigate('/home', { state: { parsedRecommendations, uuid, displayName } })
+      navigate('/home', { state: { recommendations, uuid, displayName } })
     } catch (error) {
       console.error('Error getting recommendations:', error)
     }

@@ -9,10 +9,10 @@ import DashboardButton from '../components/DashboardButton'
 
 export default function Home() {
   const location = useLocation()
-  const rec = location.state?.parsedRecommendations
+  const rec = location.state?.recommendations
   const uuid = location.state?.uuid
-  const navigate = useNavigate()
   const fetchBool = false
+  const navigate = useNavigate()
   useEffect(() => {
     if (!uuid) {
       alert('UUID not found, please sign up or log in before accessing the homepage')
@@ -23,7 +23,7 @@ export default function Home() {
   // console.log(uuid)
   const displayName = location.state?.displayName
   const [recommendations, setRecommendations] = useState(
-    typeof location.state?.parsedRecommendations !== 'undefined' ? rec.destinations : []
+    typeof location.state?.recommendations !== 'undefined' ? rec : []
   )
   const [last3Destinations, setLast3Destinations] = useState([])
 
