@@ -91,39 +91,43 @@ export default function Home() {
       <div className="col-span-7 p-4 h-[100vh]">
         <h1 className="text-3xl font-bold mb-4">Welcome back {displayName}</h1>
 
-        <div className="h-20 flex items-end">
-          <h2 className="text-2xl font-bold">Recommended for You</h2>
+        <div className="flex flex-col ">
+          <div className="flex items-end">
+            <h2 className="text-2xl font-bold ">Recommended for You</h2>{' '}
+          </div>
+
+          <div className="flex flex-auto ">
+            {!(recommendations.length === 0) ? (
+              recommendations.map((location, index) => (
+                <LocationCard
+                  key={index}
+                  location={location}
+                  uuid={uuid}
+                  onSave={fetchAndUpdateLast3Destinations}
+                  recommendation={true}
+                />
+              ))
+            ) : (
+              <>No recommended destinations</>
+            )}
+            {}
+          </div>
         </div>
 
-        <div className="flex flex-auto ">
-          {!(recommendations.length === 0) ? (
-            recommendations.map((location, index) => (
-              <LocationCard
-                key={index}
-                location={location}
-                uuid={uuid}
-                onSave={fetchAndUpdateLast3Destinations}
-                recommendation={true}
-              />
-            ))
-          ) : (
-            <>No recommended destinations</>
-          )}
-          {}
-        </div>
+        <div className="flex flex-col">
+          <div className="flex items-end">
+            <h2 className="text-2xl font-bold">Recently Saved</h2>
+          </div>
 
-        <div className="h-20 flex items-end">
-          <h2 className="text-2xl font-bold">Recently Saved</h2>
-        </div>
-
-        <div className="flex flex-auto">
-          {!(last3Destinations.length === 0) ? (
-            last3Destinations.map((location, index) => (
-              <LocationCard key={index} location={location} uuid={uuid} recommendation={false} />
-            ))
-          ) : (
-            <>No recently saved destinations</>
-          )}
+          <div className="flex flex-auto">
+            {!(last3Destinations.length === 0) ? (
+              last3Destinations.map((location, index) => (
+                <LocationCard key={index} location={location} uuid={uuid} recommendation={false} />
+              ))
+            ) : (
+              <>No recently saved destinations</>
+            )}
+          </div>
         </div>
       </div>
     </div>

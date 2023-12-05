@@ -1,5 +1,5 @@
 import { db } from './firebase'
-import { doc, getDoc, setDoc, updateDoc, arrayUnion, Timestamp } from 'firebase/firestore'
+import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove, Timestamp } from 'firebase/firestore'
 
 export async function saveDestination({ location, uuid }) {
   const { name, imageUrls, description, backgroundInfo } = location
@@ -26,6 +26,26 @@ export async function saveDestination({ location, uuid }) {
     return data
   } catch (error) {
     console.error('Error creating article in Firestore:', error)
+    throw error
+  }
+}
+
+export async function unsaveDestination({ location, uuid }) {
+  const { name } = location
+  const userDocRef = doc(db, 'users', uuid)
+
+  try {
+    const userDoc = await getDoc(userDocRef)
+
+    if (userDoc.exists()) {
+      await updateDoc(userDocRef, {
+        savedDestinations: arrayRemove(name)
+      })
+    } else {
+      throw new Error('User not found')
+    }
+  } catch (error) {
+    console.error('Error deleting article in Firestore:', error)
     throw error
   }
 }
