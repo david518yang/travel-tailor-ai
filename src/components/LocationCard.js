@@ -31,7 +31,8 @@ const LocationCard = ({ location, uuid, onSave, recommendation, onSelect }) => {
             onClick={() => onSelect()}
             className="flex items-center bg-gray-400 hover:bg-green-500 text-white text-sm font-bold py-2 px-4 my-2 rounded"
           >
-            See More <FaChevronRight />
+            <p className="mr-2">See More</p>
+            <FaChevronRight />
           </button>
         </div>
       </div>
