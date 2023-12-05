@@ -7,6 +7,9 @@ module.exports = {
         merriweather: ['Merriweather', 'serif'],
         poppins: ['Poppins', 'serif'],
         roboto: ['Roboto', 'serif']
+      },
+      colors: {
+        'splash-title-gray-blue': '#2E4564'
       }
     }
   },

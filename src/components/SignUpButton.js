@@ -27,7 +27,7 @@ export default function SignUpButton() {
   return (
     <button
       onClick={handleSignUp}
-      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-10"
+      className="bg-blue-500 hover:bg-blue-700 h-[6vh] flex lg:text-[2vh] md:text-[1vh] justify-center items-center text-white font-bold py-4 px-4 rounded my-[2vh]"
     >
       Sign Up
     </button>

@@ -8,7 +8,7 @@ async function chatCompletion(prompt) {
       {
         role: 'system',
         content:
-          "You are a helpful travel destination discovery assistant designed to find fitting destinations for a user based on their preferences. Output in JSON with keys 'name', 'description', 'backgroundInfo'"
+          "You are a helpful travel destination discovery assistant designed to find fitting destinations for a user based on their preferences. Each destination should include keys 'name' which should be the city and country of the location, 'description' which should be a 4 sentence description of the location including why it aligns with the user's preferences, and 'backgroundInfo' which should be various logistic information or background information a traveler should know before travelling there. Ensure that each destination is distinct and closely matches the user's preferences."
       },
       { role: 'user', content: prompt }
     ],
@@ -56,13 +56,12 @@ function constructPrompt(preferences) {
       preferenceString += '. '
     }
   })
+  console.log(preferenceString)
   return preferenceString
 }
 
 const getRecommendations = async preferences => {
-  const prompt =
-    'Generate 3 destinations, along with a brief description and background information with the following user preferences: ' +
-    constructPrompt(preferences)
+  const prompt = 'Generate 3 travel destinations that align with these preferences: ' + constructPrompt(preferences)
   try {
     const response = await chatCompletion(prompt)
 
