@@ -6,6 +6,7 @@ import fetchImages from '../utils/unsplash'
 import { fetchDestinations } from '../utils/destinationService'
 import EditPreferencesButton from '../components/EditPreferencesButton'
 import DashboardButton from '../components/DashboardButton'
+import ExpandedLocationCard from '../components/ExpandedLocationCard'
 
 export default function Home() {
   const location = useLocation()
@@ -26,6 +27,7 @@ export default function Home() {
     typeof location.state?.recommendations !== 'undefined' ? rec : []
   )
   const [last3Destinations, setLast3Destinations] = useState([])
+  const [selectedLocation, setSelectedLocation] = useState(null)
 
   // const [recommendedLocations, setRecommendedLocations] = useState([
   //   {
@@ -105,6 +107,7 @@ export default function Home() {
                   uuid={uuid}
                   onSave={fetchAndUpdateLast3Destinations}
                   recommendation={true}
+                  onSelect={() => setSelectedLocation(location)}
                 />
               ))
             ) : (
@@ -122,13 +125,26 @@ export default function Home() {
           <div className="flex flex-auto">
             {!(last3Destinations.length === 0) ? (
               last3Destinations.map((location, index) => (
-                <LocationCard key={index} location={location} uuid={uuid} recommendation={false} />
+                <LocationCard
+                  key={index}
+                  location={location}
+                  uuid={uuid}
+                  recommendation={false}
+                  onSelect={() => setSelectedLocation(location)}
+                />
               ))
             ) : (
               <>No recently saved destinations</>
             )}
           </div>
         </div>
+        {selectedLocation && (
+          <ExpandedLocationCard
+            key={Date.now()}
+            location={selectedLocation}
+            onClose={() => setSelectedLocation(null)}
+          />
+        )}
       </div>
     </div>
   )

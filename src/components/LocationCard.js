@@ -1,8 +1,9 @@
 import React from 'react'
 import SaveButton from './SaveButton'
 import UnsaveButton from './UnsaveButton'
+import { FaChevronRight } from 'react-icons/fa'
 
-const LocationCard = ({ location, uuid, onSave, recommendation }) => {
+const LocationCard = ({ location, uuid, onSave, recommendation, onSelect }) => {
   const { name, imageUrls, description, backgroundInfo } = location
 
   return (
@@ -20,11 +21,19 @@ const LocationCard = ({ location, uuid, onSave, recommendation }) => {
         <h3 className="text-xl font-semibold">{name}</h3>
         <p className="text-md line-clamp-3">{description}</p>
         {/* {backgroundInfo && <p className="text-sm">{backgroundInfo}</p>} */}
-        {recommendation ? (
-          <SaveButton location={location} uuid={uuid} onSave={onSave} />
-        ) : (
-          <UnsaveButton location={location} uuid={uuid} onSave={onSave} />
-        )}
+        <div className="flex flex-auto space-x-5">
+          {recommendation ? (
+            <SaveButton location={location} uuid={uuid} onSave={onSave} />
+          ) : (
+            <UnsaveButton location={location} uuid={uuid} onSave={onSave} />
+          )}
+          <button
+            onClick={() => onSelect()}
+            className="flex items-center bg-gray-400 hover:bg-green-500 text-white text-sm font-bold py-2 px-4 my-2 rounded"
+          >
+            See More <FaChevronRight />
+          </button>
+        </div>
       </div>
     </div>
   )
