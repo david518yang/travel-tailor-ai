@@ -77,6 +77,10 @@ export default function Home() {
     setLast3Destinations(destinations)
   }
 
+  const handleSavedDestinationsClick = () => {
+    navigate('/home/savedDestinations', { state: { uuid, displayName } })
+  }
+
   return (
     <div className="grid grid-cols-8 gap-2">
       <nav className="flex flex-col col-span-1 space-between h-screen bg-gray-800 text-white">
@@ -84,7 +88,9 @@ export default function Home() {
         <div className="flex flex-col m-4 space-y-2">
           <DashboardButton uuid={uuid} displayName={displayName} recommendations={rec} />
           <EditPreferencesButton uuid={uuid} displayName={displayName} />
-          <button className="py-2 px-4 bg-blue-500 rounded hover:bg-blue-700">Saved Destinations</button>
+          <button className="py-2 px-4 bg-blue-500 rounded hover:bg-blue-700" onClick={handleSavedDestinationsClick}>
+            Saved Destinations
+          </button>
         </div>
         <div className="flex-grow"></div>
         <SignOutButton className="m-4" />
