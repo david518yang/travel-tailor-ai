@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { fetchDestinations } from '../utils/destinationService'
 import DashboardButton from '../components/DashboardButton'
 import EditPreferencesButton from '../components/EditPreferencesButton'
@@ -37,16 +37,14 @@ const SavedDestinations = () => {
         <SignOutButton className="m-4" />
       </nav>
 
-      <div className="col-span-7 p-4 -mx-6">
-        <h1 className="text-3xl font-bold mb-4 ml-4">Saved Destinations</h1>
+      <div className="col-span-7 p-4">
+        <h1 className="text-3xl font-bold mb-4">Saved Destinations</h1>
 
-        {/* <div className="grid grid-cols-3 gap-2 flex-auto mr-4"> */}
-        <div className="flex flex-wrap -mx-2 mr-2">
-          {!(savedDestinations.length === 0) ? (
+        <div className="flex flex-wrap -ml-8 mr-2">
+          {savedDestinations.length > 0 ? (
             savedDestinations.map((location, index) => (
-              <div className="w-full sm:w-1/2 md:w-1/3 px-2 mb-4">
+              <div className="w-full sm:w-1/2 md:w-1/3 px-2 mb-2" key={index}>
                 <LocationCard
-                  key={index}
                   location={location}
                   uuid={uuid}
                   recommendation={false}
@@ -58,7 +56,6 @@ const SavedDestinations = () => {
             <>No recently saved destinations</>
           )}
         </div>
-        {/* </div> */}
         {selectedLocation && (
           <ExpandedLocationCard
             key={Date.now()}
