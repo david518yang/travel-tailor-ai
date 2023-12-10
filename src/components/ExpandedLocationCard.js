@@ -15,10 +15,11 @@ const ExpandedLocationCard = ({ location, onClose }) => {
       onClick={handleBackgroundClick}
     >
       <div
-        className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all w-11/12 md:max-w-4xl h-auto"
+        className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all w-11/12 md:max-w-4xl"
         onClick={stopPropagation}
       >
-        <div className="p-6">
+        {/* Set a maximum height and allow overflow scrolling */}
+        <div className="p-6 max-h-[90vh] overflow-y-auto">
           {location.imageUrls && location.imageUrls.length > 0 && (
             <div className="flex overflow-x-auto whitespace-nowrap scrollbar-hide mb-4">
               {location.imageUrls.map((url, index) => (
@@ -34,7 +35,14 @@ const ExpandedLocationCard = ({ location, onClose }) => {
 
           <h2 className="text-3xl font-bold mb-2">{location.name}</h2>
           <p className="text-lg mb-2">{location.description}</p>
+          <p className="text-xl font-bold ">Background Information:</p>
           <p className="text-lg">{location.backgroundInfo}</p>
+          {location.notableAttractions && (
+            <div>
+              <p className="text-xl font-bold">Notable Attractions</p>
+              <p className="text-lg">{location.notableAttractions}</p>
+            </div>
+          )}
         </div>
         <button onClick={onClose} className="absolute top-2 right-2 text-lg p-2">
           &times;

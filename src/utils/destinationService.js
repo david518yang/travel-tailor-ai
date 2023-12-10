@@ -2,13 +2,14 @@ import { db } from './firebase'
 import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove, Timestamp } from 'firebase/firestore'
 
 export async function saveDestination({ location, uuid }) {
-  const { name, imageUrls, description, backgroundInfo } = location
+  const { name, imageUrls, description, backgroundInfo, notableAttractions } = location
   const userDocRef = doc(db, 'users', uuid)
   const data = {
     name,
     imageUrls,
     description,
     backgroundInfo,
+    notableAttractions,
     saveDate: Timestamp.now()
   }
 
