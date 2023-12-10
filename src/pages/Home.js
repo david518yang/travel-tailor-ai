@@ -134,6 +134,7 @@ export default function Home() {
                 <LocationCard
                   key={index}
                   location={location}
+                  onSave={fetchAndUpdateLast3Destinations}
                   uuid={uuid}
                   recommendation={false}
                   onSelect={() => setSelectedLocation(location)}

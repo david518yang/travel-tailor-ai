@@ -1,10 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SaveButton from './SaveButton'
 import UnsaveButton from './UnsaveButton'
 import { FaChevronRight } from 'react-icons/fa'
 
 const LocationCard = ({ location, uuid, onSave, recommendation, onSelect, onUnsaveSuccess }) => {
   const { name, imageUrls, description, backgroundInfo } = location
+  const [isSaved, setIsSaved] = useState(false)
+
+  const handleSave = async () => {
+    try {
+      await onSave()
+      setIsSaved(true)
+    } catch (error) {
+      console.error('Error saving location:', error)
+    }
+  }
+
+  const handleUnsave = async () => {
+    try {
+      await onSave()
+      setIsSaved(false)
+    } catch (error) {
+      console.error('Error unsaving location:', error)
+    }
+  }
 
   return (
     <div className="m-4 bg-white shadow-lg border border-gray-100 rounded-xl w-full flex flex-col overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -20,12 +39,19 @@ const LocationCard = ({ location, uuid, onSave, recommendation, onSelect, onUnsa
       <div className="p-4">
         <h3 className="text-xl font-semibold">{name}</h3>
         <p className="text-md line-clamp-3">{description}</p>
-        {/* {backgroundInfo && <p className="text-sm">{backgroundInfo}</p>} */}
         <div className="flex flex-auto space-x-5">
           {recommendation ? (
-            <SaveButton location={location} uuid={uuid} onSave={onSave} />
+            <>
+              {!isSaved ? (
+                <SaveButton location={location} uuid={uuid} onSave={handleSave} />
+              ) : (
+                <p className="text-lg font-semibold text-green-500 flex items-center">
+                  <span className="mr-2">✔️</span> Saved
+                </p>
+              )}
+            </>
           ) : (
-            <UnsaveButton location={location} uuid={uuid} onSave={onSave} onUnsaveSuccess={onUnsaveSuccess} />
+            <UnsaveButton location={location} uuid={uuid} onSave={handleUnsave} onUnsaveSuccess={onUnsaveSuccess} />
           )}
           <button
             onClick={() => onSelect()}
