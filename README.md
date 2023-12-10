@@ -13,6 +13,10 @@ Travel Tailor AI is a dynamic web application designed to transform the travel p
 - **AI-Powered Recommendations**: Utilizing OpenAI's API to generate custom travel plans.
 - **Firebase Firestore Integration**: Save and manage favorite destinations in a user-specific profile.
 
+## Demo
+
+https://github.com/lmu-cmsi2021-fall2023/your-own-davidy/assets/11432517/f151e900-f8a8-4926-80a1-485a31dfd99f
+
 ## Usage
 
 1. Sign in with Google.
