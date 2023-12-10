@@ -3,7 +3,7 @@ import SaveButton from './SaveButton'
 import UnsaveButton from './UnsaveButton'
 import { FaChevronRight } from 'react-icons/fa'
 
-const LocationCard = ({ location, uuid, onSave, recommendation, onSelect }) => {
+const LocationCard = ({ location, uuid, onSave, recommendation, onSelect, onUnsaveSuccess }) => {
   const { name, imageUrls, description, backgroundInfo } = location
 
   return (
@@ -25,7 +25,7 @@ const LocationCard = ({ location, uuid, onSave, recommendation, onSelect }) => {
           {recommendation ? (
             <SaveButton location={location} uuid={uuid} onSave={onSave} />
           ) : (
-            <UnsaveButton location={location} uuid={uuid} onSave={onSave} />
+            <UnsaveButton location={location} uuid={uuid} onSave={onSave} onUnsaveSuccess={onUnsaveSuccess} />
           )}
           <button
             onClick={() => onSelect()}

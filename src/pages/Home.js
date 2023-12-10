@@ -82,8 +82,8 @@ export default function Home() {
   }
 
   return (
-    <div className="grid grid-cols-8 gap-2">
-      <nav className="flex flex-col col-span-1 space-between h-screen bg-gray-800 text-white">
+    <div className="grid grid-cols-8 gap-2 min-h-screen">
+      <nav className="flex flex-col col-span-1 space-between bg-gray-800 text-white">
         <div className="text-3xl font-bold m-4">Travel Tailor</div>
         <div className="flex flex-col m-4 space-y-2">
           <DashboardButton uuid={uuid} displayName={displayName} recommendations={rec} />
@@ -96,7 +96,7 @@ export default function Home() {
         <SignOutButton className="m-4" />
       </nav>
 
-      <div className="col-span-7 p-4 h-[100vh]">
+      <div className="col-span-7 p-4">
         <h1 className="text-3xl font-bold mb-4">Welcome back {displayName}</h1>
 
         <div className="flex flex-col ">

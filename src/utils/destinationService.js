@@ -31,21 +31,18 @@ export async function saveDestination({ location, uuid }) {
 }
 
 export async function unsaveDestination({ location, uuid }) {
-  const { name } = location
-  const userDocRef = doc(db, 'users', uuid)
-
   try {
+    const userDocRef = doc(db, 'users', uuid)
     const userDoc = await getDoc(userDocRef)
-
     if (userDoc.exists()) {
       await updateDoc(userDocRef, {
-        savedDestinations: arrayRemove(name)
+        savedDestinations: arrayRemove(location)
       })
     } else {
       throw new Error('User not found')
     }
   } catch (error) {
-    console.error('Error deleting article in Firestore:', error)
+    console.error('Error deleting destination in Firestore:', error)
     throw error
   }
 }

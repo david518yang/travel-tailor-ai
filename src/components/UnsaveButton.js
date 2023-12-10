@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { unsaveDestination } from '../utils/destinationService'
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs'
 
-const UnsaveButton = ({ location, uuid, onSave }) => {
+const UnsaveButton = ({ location, uuid, onSave, onUnsaveSuccess }) => {
   const [saved, setSaved] = useState(false)
 
   const handleUnsave = async () => {
@@ -11,6 +11,9 @@ const UnsaveButton = ({ location, uuid, onSave }) => {
       await unsaveDestination({ location, uuid })
       if (onSave) {
         onSave()
+      }
+      if (onUnsaveSuccess) {
+        onUnsaveSuccess()
       }
       setSaved(false)
     } catch (error) {

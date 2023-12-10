@@ -49,6 +49,7 @@ const SavedDestinations = () => {
                   uuid={uuid}
                   recommendation={false}
                   onSelect={() => setSelectedLocation(location)}
+                  onUnsaveSuccess={fetchAndUpdateSavedDestinations}
                 />
               </div>
             ))
