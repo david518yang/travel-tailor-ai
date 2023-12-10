@@ -8,12 +8,13 @@ async function chatCompletion(prompt) {
       {
         role: 'system',
         content:
-          "You are a helpful travel destination discovery assistant designed to find fitting destinations for a user based on their preferences. Each destination should include keys 'name' which should be the city and country of the location, 'description' which should be a 4 sentence description of the location including why it aligns with the user's preferences, and 'backgroundInfo' which should be various logistic information or background information a traveler should know before travelling there. Ensure that each destination is distinct and closely matches the user's preferences."
+          "You are a helpful travel destination discovery assistant designed to find fitting destinations for a user based on their preferences. Each destination should include keys 'name' which should be the city and country of the location, 'description' which should be a 4 sentence description of the location including why it aligns with the user's preferences, and 'backgroundInfo' which should be logistic information or background information a traveler should know before travelling there like local currency/traditions, modes of transportation, languages spoken, weather information/approprate clothing. Ensure that each destination is distinct and closely matches the user's preferences."
       },
       { role: 'user', content: prompt }
     ],
     model: 'gpt-3.5-turbo-1106',
-    response_format: { type: 'json_object' }
+    response_format: { type: 'json_object' },
+    temperature: 0.9
   })
   //   console.log(completion.choices[0])
   return completion.choices[0]
