@@ -41,3 +41,9 @@ Solo Project by David Yang
 ## Aknowledgements
 
 Prof. Dondi Dionisio
+
+## Note:
+
+Due to the OpenAI and Unsplash api keys being private, I stored them in a .env file on my local devices and used process.env in each respective file in the utils folder. This was to avoid the api keys being deactivated if they were to be pushed to git.
+
+If the code was to be run on a local machine, the api calls will not function properly. However, on the publicly hosted url it should work fine
