@@ -1,6 +1,6 @@
 # Travel Tailor AI
 
-Link to [Travel Tailor AI](https://travel-tailor-ai.web.app/) hosted on Google Cloud
+Link to [travel-tailor-ai.web.app](https://travel-tailor-ai.web.app/) hosted on Google Cloud
 
 ## Audience
 
