@@ -2,10 +2,6 @@
 
 Link to [travel-tailor-ai.web.app](https://travel-tailor-ai.web.app/) hosted on Google Cloud
 
-## Audience
-
-The audience of my app is anybody that likes travelling, and wants to discover new travel destinations that align with their preferences. 
-
 ## Introduction
 
 Travel Tailor AI is a dynamic web application designed to transform the travel planning process. By seamlessly integrating Google Sign-In, the app ensures a secure and personalized user experience. The core of the app lies in its use of OpenAI's API, which intelligently generates travel recommendations tailored to each user's unique preferences. With the added functionality of saving and managing favorite destinations through Firebase Firestore, Travel Tailor AI not only simplifies the journey planning but also personalizes it to fit every user's dream itinerary. Whether you're an occasional traveler or a frequent flyer, this app is your companion in crafting memorable and bespoke travel experiences.
@@ -21,11 +17,12 @@ https://github.com/lmu-cmsi2021-fall2023/your-own-davidy/assets/11432517/83aade3
 
 ## Technology Highlights
 
+- **ReactJS**: used React, one of the most popular front end javascript frameworks
+- **Tailwind CSS**: styled the web app with tailwind, minimizing custom css 
 - **Firebase Auth**: implemented secure and easy authentication with Firebase Sign in with Google
 - **OpenAI API**: utilized the OpenAI API to generate personalized travel recommendations
 - **Unsplash API**: fetched captivating stock photos of destinations using Unsplash
 - **Firebase Firestore**: implemented data persistence under each user to store previously entered preferences and previously saved destinations
-- **Tailwind CSS**: styled the web app with tailwind, minimizing custom css 
 
 ## Usage
 
